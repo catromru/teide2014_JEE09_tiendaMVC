@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15-jul-2014 16:39:42 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.nebur.teide.tienda.modelo.TiendaTag" table="tienda_tag" catalog="teide2014">
+        <id name="idTag" type="java.lang.Integer">
+            <column name="idTag" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <set name="tiendaProductos" table="`tienda_producto-tag`" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTag" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.nebur.teide.tienda.modelo.TiendaProducto">
+                <column name="idProducto" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
