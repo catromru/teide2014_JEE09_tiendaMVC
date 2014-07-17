@@ -1,11 +1,13 @@
 /* Autor: Rubén Alejandro Catalán Romero
    Fecha creación: 15/07/2014
-   Última modificación: 15/07/2014
+   Última modificación: 17/07/2014
 */
 
 package com.nebur.teide.tienda.controladores;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,5 +31,18 @@ public class ProductosController {
 		
 		
 		return "listado";
+	}
+	
+	@RequestMapping(value="detalle.html")
+	public String verDetalle(Model modelo, HttpServletRequest request)
+	{
+		Integer id = Integer.parseInt( request.getParameter("id") );
+		
+		TiendaProducto p = daoProd.get(TiendaProducto.class, id);
+		
+		modelo.addAttribute("producto", p);
+		
+		
+		return "detalle";
 	}
 }

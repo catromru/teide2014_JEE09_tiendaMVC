@@ -6,10 +6,11 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/teide2014?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="com/nebur/teide/tienda/modelo/TiendaProductoEnvio.hbm.xml"/>
-    <mapping resource="com/nebur/teide/tienda/modelo/TiendaProducto.hbm.xml"/>
-    <mapping resource="com/nebur/teide/tienda/modelo/TiendaCategoria.hbm.xml"/>
-    <mapping resource="com/nebur/teide/tienda/modelo/TiendaEnvio.hbm.xml"/>
-    <mapping resource="com/nebur/teide/tienda/modelo/TiendaTag.hbm.xml"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaCategoria"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaProductoEnvio"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaEnvio"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaProductoEnvioId"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaTag"/>
+    <mapping class="com.nebur.teide.tienda.modelo.TiendaProducto"/>
   </session-factory>
 </hibernate-configuration>
