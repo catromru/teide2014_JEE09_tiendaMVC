@@ -19,4 +19,9 @@ public class RepositorioProductos extends Repositorio<TiendaProducto> {
 		
 		return p;
 	}
+	@Override
+	public void delete(TiendaProducto objeto) {
+		sesion=getSessionFactory().getCurrentSession();
+		sesion.delete(objeto);
+	}
 }

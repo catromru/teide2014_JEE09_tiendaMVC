@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,11 +41,25 @@ public class ProductosRestController {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		List<TiendaProducto> lista;
 		
+		if( texto.equals("BusquedaVacia") )
+		{
+			texto = "";
+		}
+		
 		parametros.put("texto", "%"+texto+"%");
 		
 		lista = daoProd.find("producto_buscarPorNombre", parametros);
 		
 		
 		return lista;
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE)
+	public @ResponseBody String borrarProducto(@RequestBody TiendaProducto p)
+	{
+		daoProd.delete(p);
+		
+		
+		return "borrado";
 	}
 }

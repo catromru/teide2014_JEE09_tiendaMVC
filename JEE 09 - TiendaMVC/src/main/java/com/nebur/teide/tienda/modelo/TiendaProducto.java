@@ -149,7 +149,7 @@ public class TiendaProducto  implements java.io.Serializable {
     }
 
 @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="tienda_producto-tag", catalog="teide2014", joinColumns = { 
+    @JoinTable(name="tienda_producto_tag", catalog="teide2014", joinColumns = { 
         @JoinColumn(name="idProducto", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="idTag", nullable=false, updatable=false) })
     public Set<TiendaTag> getTiendaTags() {

@@ -18,7 +18,7 @@
 	<input type="submit" value="Buscar" onclick="buscar()" />
 
 	<table id="tblDatos">
-		<tr>
+		<!-- <tr>
 			<th>Nombre</th>
 			<th>Precio</th>
 			<th>-</th>
@@ -35,13 +35,19 @@
 				<td>
 					<a href="#" onclick="evento(${prod.idProducto})">Detalle Ajax</a>
 				</td>
+				<td>
+					<a href="#" onclick="borrar(${prod.idProducto})">Borrar</a>
+				</td>
 			</tr>
-		</c:forEach>
+		</c:forEach> -->
 	</table>
 	
 	<div id="divDetalle"></div>
 	
 	<script type="text/javascript">
+		(hacer autofuncion)
+
+	
 		function evento(id)
 		{
 			var url = "producto/" + id;
@@ -61,7 +67,13 @@
 
 		function buscar()
 		{
-			var url = "producto/buscar/" + $("#txtBuscar").val();
+			var texto = $("#txtBuscar").val();
+			if( texto == "" )
+			{
+				texto = "BusquedaVacia";
+			}
+			
+			var url = "producto/buscar/" + texto;
 
 			$.get(url, function(res){
 				var tabla = $("#tblDatos");
@@ -71,11 +83,31 @@
 				});
 
 				for (var i = 0; i < res.length; i++) {
-					var resultado = "<tr><td>" + res[i].nombre + "</td><td>" + res[i].precio + "</td><td><a href='detalle.html?id="+ res[i].idProducto + "'>Ver detalle</a></td><td><a href='#' onclick='evento(" + res[i].idProducto + ")'>Detalle Ajax</a></td></tr>";
+					var resultado = "<tr><td>" + res[i].nombre + "</td><td>" + res[i].precio + "</td><td><a href='detalle.html?id="+ res[i].idProducto + "'>Ver detalle</a></td><td><a href='#' onclick='evento(" + res[i].idProducto + ")'>Detalle Ajax</a></td><td><a href='#' onclick='borrar(" + res[i].idProducto + ")'>Borrar</a></td></tr></tr>";
 
 					tabla.append(resultado);
 				}
 			});
+		}
+
+		function borrar(id)
+		{
+			var datoEmple = {idProducto:id};
+			var datoPasar = JSON.stringify(datoEmple);
+
+			$.ajax(
+					"producto", {data: datoPasar,
+								method: "DELETE",
+								contentType: "application/json",
+								success: function(res){
+											alert(res);
+											buscar();
+										},
+								error: function(res){
+											alert(JSON.stringify(res));
+										}
+								}
+			);
 		}
 	</script>
 </body>
