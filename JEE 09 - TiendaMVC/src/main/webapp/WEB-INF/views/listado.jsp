@@ -14,7 +14,10 @@
 	<script type="text/javascript" src='<c:url value="/resources/js/jquery-1.11.1.min.js" />'></script>
 </head>
 <body>
-	<table>
+	<input type="text" id="txtBuscar" />
+	<input type="submit" value="Buscar" onclick="buscar()" />
+
+	<table id="tblDatos">
 		<tr>
 			<th>Nombre</th>
 			<th>Precio</th>
@@ -30,7 +33,7 @@
 					<a href="detalle.html?id=${prod.idProducto }">Ver detalle</a>
 				</td>
 				<td>
-					<a href="#" id="idObligatorio" onclick="evento(${prod.idProducto})">Detalle Ajax</a>
+					<a href="#" onclick="evento(${prod.idProducto})">Detalle Ajax</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -53,6 +56,25 @@
 				resultado+="<li>"+res.tiendaCategoria.nombre+"</li></ul>";
 
 				$("#divDetalle").html(resultado);
+			});
+		}
+
+		function buscar()
+		{
+			var url = "producto/buscar/" + $("#txtBuscar").val();
+
+			$.get(url, function(res){
+				var tabla = $("#tblDatos");
+				
+				$("#tblDatos tr").each(function(){
+					$(this).remove();
+				});
+
+				for (var i = 0; i < res.length; i++) {
+					var resultado = "<tr><td>" + res[i].nombre + "</td><td>" + res[i].precio + "</td><td><a href='detalle.html?id="+ res[i].idProducto + "'>Ver detalle</a></td><td><a href='#' onclick='evento(" + res[i].idProducto + ")'>Detalle Ajax</a></td></tr>";
+
+					tabla.append(resultado);
+				}
 			});
 		}
 	</script>
