@@ -45,7 +45,9 @@
 	<div id="divDetalle"></div>
 	
 	<script type="text/javascript">
-		(hacer autofuncion)
+		(function(){
+			buscar();
+		})();
 
 	
 		function evento(id)
