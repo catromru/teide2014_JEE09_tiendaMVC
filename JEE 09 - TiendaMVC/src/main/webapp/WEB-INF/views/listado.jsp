@@ -14,6 +14,8 @@
 	<script type="text/javascript" src='<c:url value="/resources/js/jquery-1.11.1.min.js" />'></script>
 </head>
 <body>
+	<a href="altaProducto.html">Nuevo producto</a> <br/> <br/>
+
 	<input type="text" id="txtBuscar" />
 	<input type="submit" value="Buscar" onclick="buscar()" />
 
