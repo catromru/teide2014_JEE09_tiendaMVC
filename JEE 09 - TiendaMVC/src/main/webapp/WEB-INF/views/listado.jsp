@@ -87,7 +87,7 @@
 				});
 
 				for (var i = 0; i < res.length; i++) {
-					var resultado = "<tr><td>" + res[i].nombre + "</td><td>" + res[i].precio + "</td><td><a href='detalle.html?id="+ res[i].idProducto + "'>Ver detalle</a></td><td><a href='#' onclick='evento(" + res[i].idProducto + ")'>Detalle Ajax</a></td><td><a href='#' onclick='borrar(" + res[i].idProducto + ")'>Borrar</a></td></tr></tr>";
+					var resultado = "<tr><td>" + res[i].nombre + "</td><td>" + res[i].precio + "</td><td><a href='detalle.html?id="+ res[i].idProducto + "'>Ver detalle</a></td><td><a href='#' onclick='evento(" + res[i].idProducto + ")'>Detalle Ajax</a></td><td><a href='#' onclick='borrar(" + res[i].idProducto + ")'>Borrar</a></td><td><a href='modificarProducto.html/"+ res[i].idProducto + "'>Modificar</a></td></tr></tr>";
 
 					tabla.append(resultado);
 				}

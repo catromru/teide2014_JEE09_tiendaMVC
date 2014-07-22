@@ -1,5 +1,5 @@
 /* Autor: Rubén Alejandro Catalán Romero
-   Fecha creación: 21/07/2014
+   Fecha creación: 22/07/2014
    Última modificación: 22/07/2014
 */
 
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,42 +25,48 @@ import com.nebur.teide.tienda.repositorios.RepositorioProductos;
 import com.nebur.teide.tienda.repositorios.RepositorioTags;
 
 @Controller
-@RequestMapping(value="altaProducto.html")
-public class ProductosAltaController {
-	@Autowired
-	RepositorioCategorias daoCategorias;
+@RequestMapping(value="modificarProducto.html")
+public class ProductosModificarController {
 	@Autowired
 	RepositorioProductos daoProd;
 	@Autowired
+	RepositorioCategorias daoCat;
+	@Autowired
 	RepositorioTags daoTags;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String getDatosParaAlta(ModelMap mapaModelo) {
-		ProductoViewForm producto = new ProductoViewForm();
+	@RequestMapping(value="/{id}")
+	public String obtenerDatos(ModelMap mapaModelo, @PathVariable Integer id) {
+		TiendaProducto prod = daoProd.get(TiendaProducto.class, id);
+		ProductoViewForm pvf = new ProductoViewForm();
 		
-		Map<Integer, String> mapaCategorias = daoCategorias.getMapaOptions();
-		Map<Integer, String> mapaTags = daoTags.getMapaOptions();
+		pvf.fromProducto(prod);
 		
-		mapaModelo.addAttribute("producto", producto);
+		Map<Integer, String> mapaCategorias = daoCat.getMapaOptions();
+		Map<Integer, String> mapaTags = daoTags .getMapaOptions();
+		
+		mapaModelo.addAttribute("producto", pvf);
 		mapaModelo.addAttribute("categorias", mapaCategorias);
 		mapaModelo.addAttribute("tags", mapaTags);
 		
 		
-		return "alta";
+		return "modificar";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public String hacerAlta(@ModelAttribute("producto") ProductoViewForm producto, BindingResult resultado, HttpServletRequest request ) {
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	public String hacerModificacion(@ModelAttribute("producto") ProductoViewForm pvf, BindingResult resultado, HttpServletRequest request) {
 		if( resultado.hasErrors() )
 		{
-			request.setAttribute("categorias", daoCategorias.getMapaOptions());
-			request.setAttribute("tags", daoTags.getMapaOptions());
+			Map<Integer, String> mapaCategorias = daoCat.getMapaOptions();
+			Map<Integer, String> mapaTags = daoTags .getMapaOptions();
 			
-			return "alta";
+			request.setAttribute("categorias", mapaCategorias);
+			request.setAttribute("tags", mapaTags);
+			
+			return "modificar";
 		}
 		
-		TiendaProducto prod = producto.getProducto();
-		daoProd.add(prod);
+		TiendaProducto prod = pvf.getProducto();
+		daoProd.update(prod);
 		
 		
 		return "redirect:/listado.html";

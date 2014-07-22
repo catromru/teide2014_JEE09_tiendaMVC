@@ -68,6 +68,10 @@ p:location="/WEB-INF/jdbc.properties" />
      <property name="sessionFactory" ref="sessionFactory" />
  </bean>
  
+ <bean id="daoTag" class="com.nebur.teide.tienda.repositorios.RepositorioTags">
+     <property name="sessionFactory" ref="sessionFactory" />
+ </bean>
+ 
  <tx:annotation-driven transaction-manager="txManager"
                        proxy-target-class="true"/>
     

@@ -9,6 +9,8 @@
 </head>
 <body>
 	<form:form method="post" commandName="producto">
+		<form:hidden path="idProducto"/>
+	
 		Nombre: <form:input path="nombre" /> <br/>
 		Descripcion: <form:input path="descripcion" /> <br/>
 		Foto: <form:input path="foto" /> <br/>

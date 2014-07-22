@@ -1,12 +1,16 @@
 /* Autor: Rubén Alejandro Catalán Romero
    Fecha creación: 21/07/2014
-   Última modificación: 21/07/2014
+   Última modificación: 22/07/2014
 */
 
 package com.nebur.teide.tienda.modelo.viewforms;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.nebur.teide.tienda.modelo.TiendaCategoria;
 import com.nebur.teide.tienda.modelo.TiendaProducto;
+import com.nebur.teide.tienda.modelo.TiendaTag;
 
 public class ProductoViewForm {
 	private Integer idProducto;
@@ -16,6 +20,7 @@ public class ProductoViewForm {
     private Integer existencias;
     private double precio;
     private Integer idCategoria;
+    private Integer[] idsTags;
     
     
 	public ProductoViewForm() {
@@ -23,7 +28,7 @@ public class ProductoViewForm {
 	
 	public ProductoViewForm(Integer idProducto, String nombre,
 			String descripcion, String foto, Integer existencias,
-			double precio, Integer idCategoria) {
+			double precio, Integer idCategoria, Integer[] idsTags) {
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -31,6 +36,7 @@ public class ProductoViewForm {
 		this.existencias = existencias;
 		this.precio = precio;
 		this.idCategoria = idCategoria;
+		this.idsTags = idsTags;
 	}
 	
 	
@@ -76,6 +82,12 @@ public class ProductoViewForm {
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
 	}
+	public Integer[] getIdsTags() {
+		return idsTags;
+	}
+	public void setIdsTags(Integer[] idsTags) {
+		this.idsTags = idsTags;
+	}
     
 	
 	public TiendaProducto getProducto() {
@@ -92,6 +104,14 @@ public class ProductoViewForm {
 		c.setIdCategoria(idCategoria);
 		p.setTiendaCategoria(c);
 		
+		Set<TiendaTag> tags = new HashSet<TiendaTag>();
+		for (Integer t : idsTags) {
+			TiendaTag tag = new TiendaTag();
+			tag.setIdTag(t);
+			tags.add(tag);
+		}
+		p.setTiendaTags(tags);
+		
 		
 		return p;
 	}
@@ -105,5 +125,12 @@ public class ProductoViewForm {
 		setPrecio(p.getPrecio());
 		
 		setIdCategoria( p.getTiendaCategoria().getIdCategoria() );
+		
+		idsTags = new Integer[p.getTiendaTags().size()];
+		Integer i = 0;
+		for (TiendaTag t : p.getTiendaTags()) {
+			idsTags[i++] = t.getIdTag();
+		}
 	}
+
 }
