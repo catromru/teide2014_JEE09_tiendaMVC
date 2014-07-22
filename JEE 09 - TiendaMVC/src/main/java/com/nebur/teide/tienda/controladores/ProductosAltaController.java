@@ -36,7 +36,7 @@ public class ProductosAltaController {
 		Map<Integer, String> mapaCategorias = daoCategorias.getMapaOptions();
 		
 		mapaModelo.addAttribute("producto", producto);
-		mapaModelo.addAttribute(mapaCategorias);
+		mapaModelo.addAttribute("categorias", mapaCategorias);
 		
 		
 		return "alta";

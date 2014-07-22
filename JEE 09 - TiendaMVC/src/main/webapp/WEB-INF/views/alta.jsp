@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form method="get" commandName="prod">
+	<form:form method="post" commandName="producto">
 		Nombre: <form:input path="nombre" /> <br/>
 		Descripcion: <form:input path="descripcion" /> <br/>
 		Foto: <form:input path="foto" /> <br/>
